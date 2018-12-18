@@ -5,32 +5,42 @@ using namespace std;	//use namespace std
 
 class CWin{
 	private:
-		char id,*title;
+		char id, *title;	
 
 	public:
 		CWin(char i='D', char *text="Default window"):id(i){
+			cout << "Constructor is called." << endl;
 			title = new char[strlen(text)+1];
 			strcpy(title,text);
 		}
 		
+		CWin(const CWin &win){
+			cout << "Cpoy constructor is called." << endl;
+			id = win.id;
+			title = new char[strlen(win.title)+1];
+			strcpy(title,win.title);
+		}
+		
 		~CWin(){
-			cout << "Destructor is called, Win" << this->id << " is destoryed." << endl;
 			delete [] title;
 		}
+		
 		void show(void){
-			cout << "Window " << id << ": " << title << endl;
+			cout << "Window " << id << ":" << title << endl;
 		}
 };
 
+void display(CWin win){
+	win.show();
+}
+
 int main(void){
-	CWin win1('A',"Main window");
-	CWin win2('B');
+	CWin *ptr1 = new CWin('A',"Main window");
 	
-	win1.show();
-	win2.show();
+	display(*ptr1);
+	display(*ptr1);
 	
-	cout << "sizeof(win1) = " << sizeof(win1) << endl;
-	cout << "sizeof(win2) = " << sizeof(win2) << endl;
+	delete ptr1;
 	system("pause");	//pause the program
 	return 0;
 }

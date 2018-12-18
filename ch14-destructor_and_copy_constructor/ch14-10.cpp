@@ -1,4 +1,4 @@
-#include <iostream>		//include iostream files
+#include <iostream>>	//include iostream files
 #include <cstdlib>		//include cstdlib files
 #include <cstring>		//include cstring files
 using namespace std;	//use namespace std
@@ -8,27 +8,31 @@ class CWin{
 		char id, *title;
 
 	public:
-		CWin(char i='D', const char *text="Default window"):id(i){
+		CWin(char i='D', char *text="Default window"):id(i){
+			cout << "Constructor is called." << endl;
 			title = new char[strlen(text)+1];
 			strcpy(title,text);
 		}
 		
 		~CWin(){
-			cout << "Destructor is called, Wind " << id << " is destoryed." << endl;
 			delete [] title;
 		}
 		
 		void show(void){
-			cout << "Window " << id << ": " << title << endl;
+			cout << "Window " << id << ":" << title << endl;
 		}
 };
 
+void display(CWin win){
+	win.show();
+}
+
 int main(void){
-	CWin win1('A',"Main window");
-	CWin *ptr;
-	ptr = new CWin('B');
-	win1.show();
-	ptr->show();
+	CWin *ptr1 = new CWin('A',"Main window");
+	
+	display(*ptr1);
+	display(*ptr1);
+	delete ptr1;
 	system("pause");	//pause the program
 	return 0;
 }
